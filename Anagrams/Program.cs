@@ -3,17 +3,17 @@ using System.Linq;
 
 namespace Anagrams
 {
-    class Program
+    public class Program
     {
-        private const string defaultFileName = @"..\..\Anagrams.txt";
+        private const string DefaultFileName = @"..\..\Anagrams.txt";
 
-        static void Main(string[] args)
+        private static void Main()
         {
-            string[] inputWords = System.IO.File.ReadAllLines(defaultFileName);
+            string[] inputWords = System.IO.File.ReadAllLines(DefaultFileName);
 
-            var anagramSets = inputWords.GroupBy(word => String.Concat(word.OrderBy(character => character)))
-                .OrderByDescending(set => set.First().Count())
-                .OrderByDescending(set => set.Count());
+            var anagramSets = inputWords.GroupBy(word => string.Concat(word.OrderBy(character => character)))
+                .OrderByDescending(set => set.Count())
+                .ThenByDescending(set => set.First().Length);
 
             foreach (var set in anagramSets)
             {
